@@ -1,0 +1,91 @@
+#VRML_SIM R2025a utf8
+
+PROTO Crazyflie_custom [
+  field SFVec3f    translation     0 0 0.05
+  field SFRotation rotation        0 0 1 0
+  field SFString   name            "Crazyflie"
+  field SFString   controller      "drone_surveillance"
+  field MFString   controllerArgs  []
+  field SFString   window          "<generic>"
+  field SFBool     supervisor      FALSE
+  field SFBool     synchronization TRUE
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    controller IS controller
+    controllerArgs IS controllerArgs
+    supervisor IS supervisor
+    synchronization IS synchronization
+    window IS window
+    children [
+      # Visual body
+      Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0.2 0.2 0.2
+          }
+        }
+        geometry Cylinder {
+          radius 0.05
+          height 0.02
+        }
+      }
+
+      # Camera
+      Camera {
+        name "camera"
+        translation 0 0 0.05
+        rotation 1 0 0 -1.57
+        width 324
+        height 324
+        fieldOfView 0.87
+        near 0.01
+      }
+
+      # GPS
+      GPS {
+        name "gps"
+      }
+
+      # IMU
+      InertialUnit {
+        name "inertial_unit"
+      }
+
+      # Motors
+      RotationalMotor {
+        name "m1_motor"
+        maxVelocity 1000
+        maxTorque 100
+      }
+      RotationalMotor {
+        name "m2_motor"
+        maxVelocity 1000
+        maxTorque 100
+      }
+      RotationalMotor {
+        name "m3_motor"
+        maxVelocity 1000
+        maxTorque 100
+      }
+      RotationalMotor {
+        name "m4_motor"
+        maxVelocity 1000
+        maxTorque 100
+      }
+    ]
+
+    # Physics
+    boundingObject Cylinder {
+      height 0.02
+      radius 0.05
+    }
+    physics Physics {
+      density -1
+      mass 0.05
+    }
+  }
+}
